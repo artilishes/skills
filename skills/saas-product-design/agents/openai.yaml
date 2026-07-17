@@ -1,4 +1,0 @@
-interface:
-  display_name: "SaaS Product Design"
-  short_description: "Design and review clear SaaS product interfaces"
-  default_prompt: "Use $saas-product-design to design or review this SaaS interface."
