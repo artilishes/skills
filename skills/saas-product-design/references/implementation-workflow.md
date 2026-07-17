@@ -1,123 +1,93 @@
 # Implementation workflow
 
-Use this workflow before implementing or refactoring a SaaS interface in an existing repository.
-
-## Contents
-
-1. Inspect before proposing
-2. Reconstruct the current product model
-3. Map the design to local primitives
-4. Plan the smallest coherent change
-5. Implement in behavioral layers
-6. Preserve system integrity
-7. Verify proportionally
-8. Hand off clearly
-9. Apply the completion gate
+This workflow is an independent repository and verification guardrail. Do not attribute it to the video corpus.
 
 ## 1. Inspect before proposing
 
-Find the repository's actual conventions:
+Locate the repository's actual:
 
-- Application structure and routing
-- Existing screens that solve similar problems
-- Design tokens, themes, typography, spacing, and layout primitives
-- Reusable components and their supported variants
-- Form, validation, table, chart, overlay, notification, and navigation patterns
-- Data contracts, permissions, loading behavior, and error handling
+- Application structure, routes, layouts, and entry points
+- Similar product screens and interaction patterns
+- Tokens, themes, type roles, spacing, elevation, and motion primitives
+- Forms, validation, tables, charts, overlays, notifications, and navigation components
+- Data contracts, permissions, loading, errors, mutations, and caching behavior
 - Accessibility utilities and keyboard conventions
-- Responsive conventions and supported viewports
+- Responsive conventions and supported contexts
 - Tests, stories, fixtures, preview tools, and validation commands
 
-Read component implementations when their behavior is unclear. Do not infer capabilities from names alone. Confirm whether a visual inconsistency is intentional, legacy, or accidental before replacing it.
+Read implementations when behavior is unclear. Do not infer capability from a component name. Preserve unrelated user changes and distinguish an intentional pattern from legacy inconsistency.
 
 ## 2. Reconstruct the current product model
 
-Trace:
+Trace the route context, data lifecycle, user role, permitted actions, main task, completion signal, state ownership, alternate states, and dependencies shared with other screens.
 
-- Entry point and route context
-- Data source and lifecycle
-- User role and permitted actions
-- Main task and completion signal
-- Current state ownership
-- Existing edge-state behavior
-- Dependencies shared with other screens
+For a refactor, separate behavioral changes from structural and visual cleanup. Preserve working behavior unless the requested outcome changes it.
 
-For a refactor, distinguish behavioral changes from structural or visual cleanup. Preserve working behavior unless the requested change explicitly alters it.
+## 3. Map decisions to local contracts
 
-## 3. Map the design to local primitives
+Create a small mapping before coding:
 
-Create a small mapping before writing code:
-
-| Need | Existing pattern | Decision |
+| Need | Existing contract | Decision |
 | --- | --- | --- |
-| Page shell | Local shell or layout | Reuse, extend, or justify a new pattern |
-| Primary action | Existing action hierarchy | Match established priority and behavior |
-| Data display | Table, list, cards, chart | Choose from task and data shape |
-| Edit flow | Inline, overlay, page | Match complexity, risk, and deep-link needs |
-| Feedback | Local status or notification pattern | Cover pending, success, and failure |
-| Responsive behavior | Existing breakpoint behavior | Extend without one-off assumptions |
+| Page context | Shell, route, breadcrumb, or scope control | Reuse or extend |
+| Primary task | Existing action and form conventions | Match or justify change |
+| Data question | Table, list, summary, timeline, or chart | Select from task and data |
+| Edit flow | Inline, overlay, page, or workspace | Select from scope and risk |
+| Feedback | Local status, notification, or activity pattern | Cover pending, result, and failure |
+| Responsive behavior | Existing breakpoints and transformations | Extend without one-off assumptions |
+| Accessibility | Local primitives and utilities | Preserve semantics and focus |
 
-Prefer composition over duplicating a near-identical component. Extend a shared component only when the new behavior belongs to all consumers; otherwise keep the variation local.
+Prefer composition over duplicating a near-identical component. Extend a shared component only when the new contract belongs to its other consumers.
 
 ## 4. Plan the smallest coherent change
 
-Define:
+Define files, data and state changes, reused and new primitives, interaction behavior, edge states, permissions, accessibility, responsive transformations, verification, and explicit non-goals.
 
-- Files and components in scope
-- State and data changes
-- New versus reused primitives
-- Accessibility behavior
-- Edge states
-- Responsive transformations
-- Tests or verification needed
-- Explicit non-goals
+Do not rewrite a design system to solve one screen. Introduce the smallest reusable addition only when an established contract cannot support required behavior.
 
-Avoid broad design-system rewrites to solve one screen. If the current system cannot support a necessary behavior, introduce the smallest reusable addition and document why.
+## 5. Implement in behavioral order
 
-## 5. Implement in behavioral layers
-
-Build in this order when practical:
+When practical, build in this order:
 
 1. Semantic structure and accessible names
 2. Data flow, permissions, and state ownership
 3. Primary task and action behavior
 4. Validation, pending, success, failure, and recovery
-5. Layout and responsive transformations
-6. Visual hierarchy and system-aligned styling
-7. Motion and secondary polish
+5. Responsive and input-method transformations
+6. Hierarchy and system-aligned styling
+7. Purposeful motion and secondary polish
 
-Use realistic long labels, large values, empty collections, errors, and slow operations during implementation. A layout that works only with ideal fixture data is incomplete.
+Use realistic long labels, large and missing values, empty collections, restricted roles, errors, and slow operations while implementing.
 
 ## 6. Preserve system integrity
 
-- Reuse tokens instead of adding isolated values when equivalent semantics exist.
-- Keep action, status, and navigation language consistent with the product.
-- Avoid embedding business rules in visual-only components.
-- Keep destructive actions explicit and recoverable where possible.
-- Preserve focus across overlays, navigation, async updates, and validation failures.
-- Avoid color-only status communication.
-- Respect reduced-motion and input-method differences.
-- Do not hide unavailable actions without explaining permission or prerequisite when that knowledge helps the user.
+- Reuse semantic tokens instead of isolated values.
+- Keep action, status, and navigation language consistent.
+- Keep business rules out of visual-only components.
+- Preserve focus through overlays, validation, navigation, and asynchronous changes.
+- Keep status understandable without color and actions reachable without hover or gesture.
+- Explain unavailable actions when the reason helps users proceed.
+- Do not import source-specific ratios, chart forms, layouts, or motion recipes unless the established system or explicit requirement calls for them.
 
 ## 7. Verify proportionally
 
-Use the repository's own verification path. Check at minimum:
+Run the repository's relevant checks once per coherent change batch. Verify:
 
 - Primary and alternate flows
-- Loading, empty, error, disabled, success, and permission states
-- Validation and destructive actions
-- Narrow and wide layouts
-- Long text, large data, and overflow
-- Keyboard order, focus visibility, labels, and announcements
+- Loading, refreshing, empty, partial, error, disabled, restricted, pending, success, and destructive states
+- Validation, permissions, duplicate submission, rollback, and recovery
+- Narrow, intermediate, and wide layouts
+- Long text, large data, missing values, and overflow
+- Keyboard order, visible focus, names, announcements, and reduced motion
 - Existing consumers of changed shared components
-- Relevant automated checks
+- Relevant automated checks and visual inspection
 
-For visual verification, compare hierarchy and behavior rather than forcing pixel identity across platforms. Report what was verified, what could not be verified, and why.
+Compare behavior and hierarchy rather than forcing pixel identity across platforms. Report anything not tested or observable.
 
 ## 8. Hand off clearly
 
-Summarize repository findings, changed behavior, reused or introduced patterns, verification results, and remaining limitations. Do not claim hidden or untested states are complete.
+Summarize repository findings, changed behavior, reused or introduced contracts, validation results, and remaining limitations. Do not claim hidden or untested states are complete.
 
-## 9. Completion gate
+## Completion gate
 
-Complete the Implement workflow only when repository conventions have been inspected, requested behavior and applicable states are implemented, shared-component impact is checked, relevant validation passes, and every deferred or unverified item is reported.
+Complete the Implement workflow only when the requested behavior and applicable states are implemented, repository conventions and shared impact are checked, relevant validation passes, and every deferred or unverified item is reported.

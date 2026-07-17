@@ -1,148 +1,157 @@
 # Design workflow
 
-Use this workflow to turn product requirements into a screen or connected product flow.
+Use this workflow to turn requirements and evidence into a behavioral product specification.
 
-## Contents
+## 1. Establish the evidence boundary
 
-1. Frame the product problem
-2. Model tasks and flows
-3. Define screen anatomy
-4. Establish information hierarchy
-5. Define the interaction model
-6. Assign component responsibilities
-7. Specify states and responsive behavior
-8. Deliver a screen specification
-9. Apply the completion gate
+Inventory the supplied requirements, user research, analytics, screenshots, design files, data shapes, code, components, tokens, tests, and platform constraints. Separate facts, observations, assumptions, and preferences.
 
-## 1. Frame the product problem
+Resolve an unknown before proceeding when it changes the primary task, product objects, navigation, permissions, destructive consequences, or success criteria. Otherwise make the smallest reversible assumption and label it.
 
-Capture only the facts that affect the interface:
+Do not manufacture specificity to make the specification look complete. Product objects, fields, status models, navigation, business rules, permissions, shortcuts, breakpoints, exact target sizes, named accessibility standards, and service contracts must come from supplied evidence or appear explicitly as proposals requiring confirmation. Use qualitative requirements when the correct numeric threshold depends on the product, platform, or existing system.
 
-- Product outcome and user outcome
-- Primary and secondary user roles
-- Jobs users perform, ordered by frequency and importance
-- Core entities, relationships, status changes, and permissions
-- High-risk or irreversible actions
-- Data volume, variability, freshness, and latency
-- Desktop, mobile, embedded, or constrained operating contexts
-- Existing product or design-system constraints
+## 2. Frame the product outcome
 
-Separate facts from assumptions. Resolve ambiguity when it changes navigation, data ownership, permissions, or the primary task. Otherwise make the smallest reversible assumption and label it.
+Capture only information that changes the interface:
 
-## 2. Model tasks and flows
+- User and product outcome
+- Primary and secondary roles
+- Recurring tasks ordered by frequency, importance, and risk
+- Entities, relationships, statuses, lifecycle changes, and permissions
+- Data volume, variability, freshness, latency, and missing-value semantics
+- Desktop, mobile, native, embedded, or constrained operating context
+- Existing product and design-system constraints
 
-Describe the main path as a sequence of user decisions and system responses. Include entry points, prerequisite context, save or submit behavior, success confirmation, recovery, and the next useful action.
+Do not start with a component inventory or visual style.
 
-Add alternate paths for:
+## 3. Model tasks and flows
 
-- First use versus returning use
-- Create versus edit
-- Valid versus invalid input
-- Available versus unavailable data
-- Authorized versus restricted access
-- Single-item versus bulk work
-- Immediate versus long-running operations
-- Safe versus destructive changes
+Describe the primary path as decisions and system responses:
 
-Do not use a modal, drawer, wizard, or separate page until the task model justifies it.
+```text
+entry -> orientation -> user action -> pending response -> result -> next useful action
+```
 
-## 3. Define screen anatomy
+Add the alternate paths that materially change layout, actions, copy, or recovery:
 
-Organize the screen into responsibilities rather than visual rectangles:
+- First use and returning use
+- Create, inspect, edit, duplicate, archive, restore, and delete
+- Valid and invalid input
+- Available, empty, stale, partial, unavailable, and failed data
+- Authorized, restricted, and prerequisite-blocked access
+- Single-item and bulk work
+- Immediate and long-running operations
+- Safe, reversible, and irreversible changes
 
-1. **Context**: Where am I and what object or scope am I viewing?
-2. **Orientation**: What is the current state, time range, filter, or selection?
-3. **Primary work**: What information or control enables the main task?
-4. **Actions**: What can I do now, and which action matters most?
-5. **Support**: What explanation, history, metadata, or help is needed?
-6. **System feedback**: What is loading, saved, failed, blocked, or complete?
+Use [patterns-states-responsive.md](patterns-states-responsive.md) to build the state matrix.
 
-Order regions by user priority, not by component popularity. Keep the primary object and action visible without forcing users to infer them from decoration.
+## 4. Shape information from the task and data
 
-## 4. Establish information hierarchy
+For each important data group, state:
 
-- Lead with the screen purpose and current scope.
-- Put decision-making information before supporting detail.
-- Group related controls with the content they affect.
-- Keep labels specific and stable across navigation, headings, actions, and feedback.
-- Use spacing and alignment before adding borders, containers, or color.
-- Allow dense interfaces when comparison and repeated work benefit from density.
-- Avoid equal visual weight for every metric, card, action, or setting.
+- The user question it answers
+- Whether exact lookup, comparison, trend, sequence, distribution, composition, or status matters
+- Necessary scope, labels, units, freshness, and baseline
+- The appropriate representation and why
+- The action or detail path it supports
 
-Describe the hierarchy in words before specifying visual treatment. If the hierarchy cannot be explained clearly, the screen is not ready for styling.
+Reject a chart, timeline, card, or story when a simpler representation serves the question better.
 
-## 5. Define the interaction model
+## 5. Define screen responsibilities and hierarchy
 
-Specify:
+Organize regions by responsibility:
 
-- Navigation level and persistent context
-- Selection behavior and keyboard expectations
-- Filters, search, sorting, pagination, and saved views
-- Create, edit, duplicate, archive, delete, restore, and bulk actions
-- Autosave, explicit save, draft, publish, or apply behavior
-- Inline, overlay, or full-page transitions
-- Undo, confirmation, and recovery behavior
-- Progress and completion feedback for long-running work
+1. **Context** — location, object, account, workspace, or scope
+2. **Orientation** — status, time range, filters, selection, or progress
+3. **Primary work** — information and controls for the main task
+4. **Actions** — the current mutation or navigation choices
+5. **Support** — metadata, history, explanation, or help
+6. **Feedback** — pending, saved, failed, restricted, or complete state
 
-Prefer in-place interactions for small, low-risk edits with sufficient context. Prefer a separate page or focused workspace for complex, deep-linkable, multi-step, or high-risk work. Use overlays for bounded tasks that benefit from retaining the underlying context.
+Write the reading order and action priority before styling. Remove equal-weight regions, redundant controls, and containers without a behavioral purpose.
 
-## 6. Assign component responsibilities
+## 6. Define disclosure and interaction surfaces
+
+For every control or information group, classify it as frequent/required, secondary, advanced, conditional, or destructive. Keep frequent and required items explicit. Give every disclosed item a predictable trigger and preserve keyboard and touch access.
+
+Choose inline interaction, popover, modal, drawer, page, or focused workspace from:
+
+- Task duration and complexity
+- Need to preserve surrounding context
+- Interruption and blocking behavior
+- Deep-link, collaboration, or history requirements
+- Validation and destructive risk
+- Available viewport and input method
+
+Do not select a surface merely because a source or admired product demonstrated it.
+
+## 7. Assign component contracts
 
 For each component, define:
 
-- Information displayed
-- User action accepted
-- State owned versus received
+- Information displayed and action accepted
+- State owned and state received
 - Validation or business rule enforced
-- Feedback emitted
-- Behavior when content is missing, long, delayed, or restricted
-- Responsive transformation
+- Pending, success, and failure feedback
+- Missing, long, delayed, and restricted content behavior
+- Responsive transformation and input alternatives
 
-Split components by coherent behavior and ownership, not arbitrary visual fragments. Keep cross-screen business rules outside purely presentational components in whatever architecture the repository uses.
+Split components by coherent behavior and ownership. Scale shared components and tokens to actual repetition and team needs.
 
-## 7. Specify states and responsive behavior
+## 8. Define feedback, trust, and accessibility
 
-Create a state matrix using [patterns-states-responsive.md](patterns-states-responsive.md). Include states that change layout, available actions, copy, or recovery—not merely a generic note that states exist.
+Specify acknowledgement, pending behavior, success confirmation, failure recovery, focus movement, and preserved input for each mutation. Use optimistic feedback only under the conditions in [product-interface-principles.md](product-interface-principles.md).
 
-Define responsive behavior by priority:
+Specify semantic controls, names, keyboard order, visible focus, announcements, non-color meaning, zoom and text expansion, reduced motion, and alternate input paths.
 
-- What remains visible?
-- What wraps, stacks, condenses, scrolls, summarizes, or moves behind disclosure?
-- Which controls need a mobile-specific interaction?
-- How are wide tables, builders, inspectors, and sidebars handled?
-- What minimum content width preserves comprehension?
+## 9. Transform across contexts
 
-## 8. Deliver a screen specification
+For wide, medium, and narrow contexts, state what remains simultaneous, what stacks, what becomes a focused mode, what moves behind disclosure, and how wide data is handled. Adapt to touch, keyboard, pointer, and platform conventions.
 
-Use this compact format:
+Do not write “make responsive” or proportionally scale a desktop composition.
+
+## 10. Deliver the specification
+
+Keep the result proportional to the request. Start with decisions that are supported or necessary; do not enumerate fictional fields, APIs, shortcuts, or edge cases. Use these labels consistently:
+
+- **Fact** — stated in requirements or directly observed
+- **Assumption** — reversible interpretation used to continue
+- **Proposal** — recommended behavior that the product has not established
+- **Open decision** — consequential choice that needs product input
 
 ```text
-Screen: [name]
-Goal: [user outcome]
-Entry points: [where users come from]
-Primary task: [task]
+Screen or flow: [name]
+Outcome: [user result]
+Evidence: [supplied facts and observable artifacts]
+Assumptions: [small reversible interpretations]
+Proposals: [recommended but unestablished behavior]
+Open decisions: [consequential choices requiring input]
 
-Structure:
-1. [region] — [purpose and priority]
+Tasks and flow:
+- [entry] -> [decision/action] -> [system response] -> [recovery/next action]
+
+Data and representation:
+- [user question] -> [representation and reason]
+
+Structure and hierarchy:
+1. [region] — [responsibility and priority]
 
 Interactions:
-- [trigger] -> [system response] -> [feedback/recovery]
+- [trigger] -> [surface/transition] -> [feedback and recovery]
 
 Components:
-- [component] — owns [responsibility]; handles [states]
+- [component] — owns [contract]; handles [states]
 
-States:
-- [state] — [presentation, available actions, recovery]
+State matrix:
+- [state] — [presentation, actions, accessibility, recovery]
 
-Responsive:
-- Wide / medium / narrow transformations
+Responsive transformations:
+- Wide / medium / narrow / input-method differences
 
 Acceptance criteria:
-- Observable behavior, accessibility, and edge cases
+- Observable behavior, states, accessibility, risk, and edge cases
 ```
 
-Keep the specification behavioral. Add measurements only when a platform, design system, or artifact supplies them.
+## Completion gate
 
-## 9. Completion gate
-
-Complete the Design workflow only when the specification covers the product goal, primary and alternate paths, screen structure, interactions, component ownership, every applicable state, wide/medium/narrow behavior, accessibility, and observable acceptance criteria; label every unresolved assumption.
+Complete the Design workflow only when the specification covers the outcome, evidence and assumptions, primary and alternate flows, data representations, hierarchy, interaction surfaces, component contracts, applicable states, responsive transformations, accessibility, feedback, recovery, and observable acceptance criteria.

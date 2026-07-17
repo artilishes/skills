@@ -1,78 +1,77 @@
 # Visual language
 
-Use visual treatment to explain hierarchy, semantics, interaction, and change. Separate durable interface principles from contextual stylistic preferences.
+Use visual treatment to communicate hierarchy, semantics, interaction, and change.
 
-## Durable principles
+## Hierarchy
 
-### Hierarchy
+- Coordinate position, grouping, spacing, size, weight, and contrast rather than relying on font size alone.
+- Reserve the strongest emphasis for the current task, decision, or exception.
+- Use whitespace and alignment before adding dividers and containers. `[S10, S41]`
+- Keep repeated structures stable enough to scan.
+- Reduce secondary prominence without sacrificing contrast or legibility.
 
-- Create emphasis through a coordinated system of position, spacing, size, weight, and contrast.
-- Reserve the strongest emphasis for the current task, decision, or exceptional state.
-- Use alignment and whitespace to show relationships before adding dividers or containers.
-- Keep repeated structures visually stable so users can scan rather than relearn.
-- Reduce the prominence of metadata and secondary actions without making them illegible.
+## Typography
 
-### Color
-
-- Assign color by semantic role: surface, text, border, action, focus, success, warning, danger, and information.
-- Keep status meaning consistent across text, icons, controls, charts, and notifications.
-- Pair color with labels, icons, patterns, or position when status matters.
-- Meet the applicable contrast needs for text, controls, focus, disabled content, and data visualization.
-- Use brand or accent color selectively so action and status remain legible.
-- Treat dark mode as a complete surface and contrast system, not an inversion filter.
-
-### Depth
-
-- Use depth to explain layering, containment, selection, or interactivity.
-- Keep elevation ordering consistent across menus, overlays, inspectors, and notifications.
-- Avoid stacking borders, shadows, tints, and rounded containers when spacing alone communicates the grouping.
-- Ensure overlays remain distinguishable without disconnecting users from the underlying context.
-
-### Typography
-
-- Use readable sizes, line heights, and line lengths for the platform and density.
-- Keep a small, systematic type hierarchy tied to roles rather than isolated values.
+- Define a small set of semantic roles and map them to the existing design system.
+- Use readable sizes, line heights, and line lengths for the platform, density, and content.
+- Adapt line height as size and measure change; do not force one percentage across roles. `[S31]`
 - Use tabular numerals or aligned formatting when numeric comparison benefits.
 - Preserve semantic heading order independently from visual size.
-- Avoid relying on placeholder text as a label or making secondary text too faint to read.
+- Keep labels persistent; placeholder text is not a label. `[S45, G03]`
 
-### Motion
+Font counts, golden-ratio scales, fixed opacity ranges, negative tracking values, and fluid-scaling equations are exploration recipes, not universal requirements. Prefer established tokens and verify at realistic widths, zoom, and localization. `[S10, S31, S41]`
 
-- Use motion to explain continuity, hierarchy changes, progress, or direct manipulation.
-- Keep feedback immediate and transitions short enough not to delay repeated work.
-- Avoid motion that hides status, shifts targets unexpectedly, or implies completion before the system confirms it.
-- Respect reduced-motion preferences and provide equivalent state cues without animation.
+## Color and themes
 
-### Feedback
+- Assign color by role: surfaces, text, borders, actions, focus, success, warning, danger, information, and data categories.
+- Keep status meaning consistent across text, icons, controls, charts, and notifications.
+- Pair important color meaning with text, iconography, pattern, or position.
+- Use accent color selectively enough that action and status remain distinct.
+- Treat light and dark themes as complete surface and contrast systems; do not directly invert values. `[S39, S48]`
+- For categorical data, seek perceptual separation and verify contrast and distinguishability. Do not import fixed OKLCH or HSB increments without testing the actual palette and data. `[S48]`
 
-- Acknowledge input, show pending work, confirm completion, and expose failure near the affected context.
-- Keep persistent status visible for persistent conditions; do not rely on a disappearing notification for unsaved, offline, or failed states.
-- Use global notifications for background or cross-screen events and local feedback for local changes.
-- Preserve user input and a recovery path when possible.
+Neutral-layer counts, 60-30-10 distributions, brightness deltas, saturation shifts, and brand-color overrides remain contextual.
 
-## Contextual preferences
+## Components, geometry, and icons
 
-Treat the following as stylistic options, never universal quality rules:
+- Keep radius, spacing, stroke, fill, icon style, and state behavior coherent across components with the same responsibility.
+- Use one icon family or deliberately compatible families. Match detail, stroke, fill, and optical size to context.
+- Prefer a label when an icon is unfamiliar, consequential, or ambiguous.
+- Distinguish buttons, status chips, tags, fields, and static containers through behavior and semantics—not only geometry.
+- Calculate nested geometry when it improves visual alignment, but do not force a radius subtraction or padding ratio that conflicts with tokens, touch size, or content. `[S41, S45]`
 
-- Very rounded versus restrained corner radii
-- Soft shadows, flat borders, tinted surfaces, or high-contrast panels
-- Pure monochrome versus broader accent palettes
-- Light, dark, or mixed surface themes
-- Glass, blur, glow, gradient, or grain effects
-- Spacious editorial layouts versus compact operational density
-- Animated charts, counters, or decorative transitions
-- Icon-forward controls versus text-forward controls
+## Data visualization
 
-Adopt a preference only when it fits the product character, platform norms, existing design system, performance, accessibility, and task frequency. Do not introduce a fashionable treatment as evidence of product quality.
+- Choose a chart only when visual shape, distribution, relationship, or composition helps the task more than exact values alone.
+- Keep title, labels, units, scale, time range, baseline, filters, comparison context, and missing-data meaning available when relevant.
+- Avoid decorative charts that duplicate a percentage or cannot support interpretation or action. `[S35]`
+- Curves, straight lines, fills, grids, axes, bars, and pie charts are contextual choices. Verify that the selected form preserves the data and the user's comparison task.
+
+## Depth
+
+- Use depth to explain layering, containment, selection, or interactivity.
+- Keep elevation ordering coherent across menus, overlays, inspectors, and notifications.
+- Avoid stacking borders, shadows, tints, blur, and rounded containers when spacing communicates the relationship.
+- Do not universalize shadow multipliers, opacity ranges, or dark-mode shadow rules. `[S10]`
+
+## Motion and feedback
+
+- Use motion to explain continuity, hierarchy changes, progress, direct manipulation, or the relationship between trigger and result.
+- Acknowledge input immediately, but do not animate unconfirmed success.
+- Keep repeated-work transitions short and interruptible where appropriate.
+- Preserve the final state without motion and respect reduced-motion preferences.
+- Use standard easing and repository motion tokens unless a tested interaction requires otherwise.
+
+Shimmer, particles, spring values, parallax, magnetic indicators, morphs, card tilts, hover reveals, and swipe choreography are contextual treatments. They are never evidence of product quality by themselves. `[S01, S12, S30]`
 
 ## Decision test
 
 For each visual choice, ask:
 
-1. What information or interaction does this treatment clarify?
-2. Does it remain understandable without color, hover, or animation?
-3. Is it consistent with similar roles elsewhere in the product?
-4. Does it survive realistic density, long content, narrow widths, and alternate themes?
-5. Is it a durable semantic rule or a contextual preference?
+1. What information, action, state, or relationship does it clarify?
+2. Is the meaning preserved without color, hover, gesture, or animation?
+3. Does it match the product's existing semantic system?
+4. Does it survive realistic density, content variation, zoom, localization, narrow widths, and alternate themes?
+5. Is this a durable rule, a product-specific decision, or a taste preference?
 
-Keep durable rules stable. Allow preferences to vary only within a coherent system.
+Remove a treatment when it cannot answer the first question.

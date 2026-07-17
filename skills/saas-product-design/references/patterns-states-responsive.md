@@ -1,119 +1,130 @@
 # Patterns, states, and responsive behavior
 
-Use this reference to choose a starting structure and expose missing behavior. Adapt patterns to the product rather than treating them as templates.
+Use this reference to expose missing product behavior. Adapt every pattern to the task and product evidence.
 
-## Contents
-
-- Screen patterns
-- State matrix
-- Responsive behavior
-
-## Screen patterns
+## Screen-pattern checks
 
 ### Dashboards
 
-- Define the decisions the dashboard should enable.
-- Establish scope, time range, freshness, and filters before metrics.
+- Define the decisions and follow-up actions the dashboard should enable.
+- Establish scope, time range, freshness, comparison baseline, and filters before interpreting metrics.
 - Prioritize exceptions, changes, and actionable signals over decorative summaries.
-- Connect summaries to underlying detail and follow-up actions.
-- Avoid redundant metrics, unexplained charts, and equal-weight card walls.
+- Connect summaries to evidence and relevant actions.
+- Remove redundant metrics, controls, and charts. Do not assign equal weight to every widget.
+- Choose each chart, table, list, status group, or timeline from the data question—not from the available grid space.
 
 ### CRUD and administration
 
-- Make object identity, status, ownership, and available actions easy to scan.
+- Make identity, status, ownership, lifecycle, and available actions easy to scan.
 - Keep create, inspect, edit, archive, delete, restore, and bulk behavior consistent.
-- Preserve filters, sorting, pagination, and selection when users return from detail work when practical.
+- Preserve useful list context—filters, sorting, pagination, selection, or scroll position—when users return from detail work.
 - Show permission and lifecycle constraints near affected actions.
-- Protect destructive and bulk operations with explicit scope and recovery.
+- State the scope and recovery path for destructive and bulk operations.
 
 ### Data-heavy interfaces
 
-- Prefer tables for exact comparison across repeated attributes.
-- Keep headers, units, sorting, filters, selection, and row actions predictable.
-- Support long values, missing values, many columns, large datasets, and partial failures.
-- Use summaries or charts as navigation into detail, not replacements for inspectable data.
-- Define virtualization, pagination, or incremental loading from data scale and interaction needs, not framework preference.
+- Use stable headers, labels, units, formatting, sorting, filters, selection, and action placement.
+- Right-align numeric columns when place-value comparison benefits; keep signs, units, and precision consistent.
+- Preserve access to full values when content is truncated.
+- Define missing, stale, unavailable, restricted, and partial values distinctly.
+- Keep low-frequency row actions reachable without hover and predictable by keyboard and touch.
+- Choose pagination, incremental loading, or virtualization from dataset size, task continuity, URL/state needs, and repository conventions—not fashion.
 
 ### Navigation
 
-- Reflect the product's objects and user mental model.
-- Keep global navigation distinct from local tabs, filters, and object actions.
+- Reflect product objects and user mental models.
+- Distinguish global navigation from local tabs, filters, views, and object actions.
 - Show current location and preserve relevant scope.
-- Use badges sparingly for actionable change or status.
-- Collapse navigation responsively without removing critical destinations or context.
+- Use badges only for meaningful status or actionable change.
+- Collapse navigation without removing critical destinations or context.
 
 ### Forms and settings
 
-- Group fields by user decision, not storage schema.
-- Use persistent labels, useful descriptions, sensible defaults, and clear required status.
-- Validate at the earliest helpful moment without interrupting normal entry.
-- Put errors next to affected controls and provide a summary when failures span a long form.
+- Group fields by user decision rather than storage schema.
+- Use persistent labels, helpful examples, clear required status, and sensible defaults. `[S45]`
+- Validate at the earliest useful moment without interrupting normal entry.
+- Put field errors next to affected controls and summarize failures when a long form requires it.
 - Make save behavior, unsaved changes, dependencies, and dangerous settings explicit.
 
 ### Builders and editors
 
 - Separate source material, work surface, selection, properties, and preview according to the task.
-- Preserve selection and editing context while exposing advanced controls progressively.
-- Make save or sync status, undo/redo, version state, validation, and publish state visible.
-- Support empty canvases, invalid configurations, long-running generation, conflicts, and constrained viewports.
-- Do not compress a multi-pane desktop editor into unusable narrow columns; transform panes into focused modes or staged views.
+- Preserve selection and editing context while disclosing advanced controls.
+- Make save or sync status, undo/redo, version state, validation, conflicts, and publish state visible.
+- Transform multi-pane desktop layouts into focused modes or staged views at narrow widths instead of compressing every pane.
+
+### AI interfaces
+
+- Show material prompt context, attached files, selected mode, and tool scope.
+- Keep generation history when users need comparison, recovery, or reuse.
+- Expose persistent memory for review, correction, and deletion when the system has it.
+- Allow correction close to the generated artifact when inline editing preserves context.
+- During meaningful latency, show truthful progress without fabricating internal reasoning or confidence.
+
+### Gamified experiences
+
+- Start with the user goal and define why progress or a reward helps it.
+- Make progress and remaining effort legible.
+- Use points, streaks, levels, public badges, competition, or social stakes only when they carry meaningful value for this audience.
+- Do not replace product value with variable rewards, addictive friction removal, or performative engagement.
 
 ### Onboarding
 
-- Move users toward first value, not feature awareness.
+- Move users toward first value rather than feature awareness.
 - Ask only for information required for the next useful step.
-- Show progress when sequence or effort warrants it.
-- Allow safe exit and return; preserve completed work.
-- End with a meaningful product state and next action, not a dead-end success screen.
+- Use existing data to demonstrate value before asking for commitment when appropriate.
+- Introduce the next important action in context; use a cue or checklist only when it reduces uncertainty.
+- Allow safe exit and return, preserve completed work, and end in a meaningful product state.
 
 ## State matrix
 
-Specify presentation, available actions, accessibility, and recovery for applicable states:
+For every applicable state, specify presentation, available actions, accessibility behavior, and recovery:
 
-| State | Questions to answer |
+| State | Required decisions |
 | --- | --- |
-| Initial loading | What structure can appear immediately? Is progress determinate? Can the user leave or cancel? |
+| Initial loading | What structure is known? Is progress determinate? Can the user leave or cancel? |
 | Refreshing | Can existing data remain visible? How is staleness communicated? |
 | Empty: first use | What is this area for, and what safe first action creates value? |
-| Empty: no results | Which filter or query caused it, and how can the user broaden or clear it? |
-| Empty: unavailable | Is data absent, delayed, restricted, or not applicable? |
-| Partial data | Which regions succeeded or failed? Can the user act on available data? |
-| Error | What failed, what was preserved, and what recovery is available? |
+| Empty: no results | Which filter or query caused it, and how can it be changed or cleared? |
+| Empty: unavailable | Is data absent, delayed, restricted, disconnected, or not applicable? |
+| Partial data | Which regions succeeded or failed? Can users act on available data? |
+| Error | What failed, what input or context was preserved, and what recovery is available? |
 | Invalid input | Which field or rule failed, why, and where should focus move? |
-| Disabled | Is the reason obvious or explained? Is there a prerequisite or permission path? |
-| Pending mutation | Is duplicate action prevented? Can the work be canceled or left running? |
+| Disabled | Is the reason visible? Is there a prerequisite, permission, or plan path? |
+| Pending mutation | Is duplicate action prevented? Can work be canceled or safely left running? |
 | Success | What changed, where is it visible, and what is the next useful action? |
-| Destructive action | What scope is affected? Can it be undone, restored, or confirmed safely? |
-| Restricted | Is the missing capability due to role, plan, state, or policy? |
-| Long content | Does text wrap, truncate with access to the full value, or change layout safely? |
-| Overflow | What scrolls, pins, condenses, or becomes a focused view? |
-| Concurrent change | How are stale data, conflicts, or overwritten edits handled? |
-| Offline or interrupted | What remains usable, queued, preserved, or retryable? |
+| Destructive action | What scope is affected? Is confirmation, undo, restore, or audit history appropriate? |
+| Restricted | Is capability missing because of role, plan, object state, or policy? |
+| Long content | Does content wrap, expand, truncate with full access, or change layout safely? |
+| Overflow | What scrolls, pins, condenses, summarizes, or becomes a focused view? |
+| Concurrent change | How are stale data, conflicts, merging, or overwritten edits handled? |
+| Offline/interrupted | What remains usable, queued, preserved, or retryable? |
 
-Differentiate empty states. A new user with no objects needs orientation and creation; a filtered list with no matches needs filter recovery; an unavailable dataset needs explanation.
+Do not collapse distinct empty states into one illustration and message.
 
-## Responsive behavior
+## Responsive transformations
 
-Treat responsiveness as prioritization and transformation, not proportional shrinking.
+Treat responsiveness as reprioritization plus input adaptation.
 
-### Wide layouts
+### Wide
 
-Use available space for simultaneous context: persistent navigation, comparison columns, inspectors, or supporting detail. Limit line length and avoid stretching simple forms merely to fill width.
+Use simultaneous context when it improves the task: navigation, comparison columns, an inspector, supporting detail, or multiple coordinated panes. Do not stretch a simple form merely to fill space.
 
-### Medium layouts
+### Medium
 
-Reduce secondary context first. Collapse optional sidebars, condense action groups, and allow local regions to wrap while preserving the primary task and current scope.
+Remove secondary simultaneity first. Collapse optional panels, condense low-frequency actions, allow regions to wrap, and preserve the primary task and scope.
 
-### Narrow layouts
+### Narrow and touch
 
-- Stack reading-order content.
-- Convert side-by-side workspaces into focused modes when needed.
-- Keep primary actions reachable without covering content.
-- Move secondary actions into a clearly labeled menu.
-- Provide an intentional pattern for wide data: priority columns, row detail, cards, or controlled horizontal scrolling.
-- Avoid hover-only controls and tiny targets.
-- Preserve labels and status meaning; icons alone rarely carry enough context.
+- Stack content in reading order.
+- Convert side-by-side workspaces into focused modes when comprehension requires it.
+- Keep frequent actions reachable without covering content.
+- Move secondary actions into a labeled menu.
+- Provide an intentional wide-data strategy: priority columns, row detail, cards, summaries, or controlled horizontal scrolling.
+- Use bottom sheets or other contextual surfaces only when they fit the platform and task; they are not mandatory.
+- Treat swipe, long press, and edge gestures as accelerators with visible alternatives.
+- Preserve labels and status meaning; do not depend on icons or color alone.
 
 ### Responsive validation
 
-Test more than named breakpoints. Check intermediate widths, text zoom, localization, keyboard overlays, long labels, dense data, expanded validation, and open menus or inspectors. Ensure the visual order matches the reading and focus order.
+Test intermediate widths, zoom, text expansion, localization, keyboard overlays, long labels, dense data, open validation, menus, and inspectors. Ensure visual order matches reading and focus order.

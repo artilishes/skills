@@ -1,83 +1,93 @@
-# Product interface principles
+# Product-interface principles
 
-Apply these principles across SaaS screens. Adapt them to user goals, domain risk, platform conventions, and the existing product system.
+Use these rules for product decisions. Treat them as context-sensitive operating principles rather than universal visual recipes.
 
-## Let work and data shape the screen
+## Start from intent, work, and data
 
-- Start from user decisions, repeated actions, and data relationships.
-- Show data because it supports monitoring, comparison, diagnosis, or action—not because dashboards traditionally contain cards or charts.
-- Match representation to the task: exact lookup favors tables or lists; trend detection may favor charts; status scanning may favor grouped summaries.
-- Keep provenance, freshness, units, time ranges, filters, and missing-data meaning visible when they affect interpretation.
-- Place actions near the object or state they change.
+- Identify the decision or repeated action the screen must support before selecting components.
+- Show information because it enables monitoring, comparison, diagnosis, or action—not because dashboards traditionally contain metrics and cards.
+- Choose the representation from the question users need to answer:
+  - Exact lookup and repeated comparison usually favor a table or structured list.
+  - Change over time may favor a chart when shape matters and a comparison value when magnitude matters.
+  - Sequence or causality may favor a timeline.
+  - A guided recap may use chapters or a story, but provide faster access when users also need quick lookup.
+  - A summary must lead to inspectable detail when users need evidence or action.
+- Keep scope, filters, freshness, units, precision, signs, baselines, and missing-value meaning visible when they affect interpretation.
+- Align comparable numbers consistently. Use compact status treatments only with explicit text and non-color meaning.
 
-## Build an explicit hierarchy
+## Establish hierarchy before decoration
 
-Give the interface a clear reading order:
+Describe the reading order in plain language:
 
 1. Current location and scope
-2. Primary status or decision
+2. Primary status, exception, or decision
 3. Main work surface
-4. Primary action
+4. Frequent action
 5. Secondary detail and utilities
 
-Use position, grouping, whitespace, typography, and contrast before adding containers. Avoid card grids where every item receives equal emphasis regardless of importance.
+Use position, grouping, spacing, type roles, and contrast to produce that order. Add a container only when it communicates ownership, interaction, or grouping that spacing cannot. Avoid equal-weight card walls and duplicate controls.
 
-## Design flows, not isolated screens
+## Design flows and state transitions
 
-Account for entry, progress, completion, recovery, and return. Preserve context across steps where it reduces memory load. Provide a clear next action after creation, import, approval, or setup.
+Model entry, prerequisites, user action, system response, success, failure, recovery, and next useful action. Cover first use and return use, create and edit, valid and invalid input, available and unavailable data, authorized and restricted access, and safe and destructive changes.
 
-Prefer fewer decisions at once, but do not split a simple task into a ceremonial wizard. Use steps when order, validation boundaries, dependencies, or progress visibility provide real value.
+Do not use a wizard merely to make a form feel designed. Use steps when order, dependencies, validation boundaries, effort, or progress genuinely matter.
 
-## Apply progressive disclosure deliberately
+## Disclose complexity deliberately
 
-Keep frequent and required controls visible. Defer advanced, rare, or conditional options behind a clearly labeled disclosure. Preserve current values and validation when content is collapsed.
+Keep frequent, required, or decision-critical information and controls visible. Defer advanced, rare, or conditional controls behind a labeled and predictable disclosure. Preserve values and errors when content collapses.
 
-Do not use disclosure to conceal primary actions, critical status, destructive consequences, or information users need to decide whether to proceed.
+Never use disclosure to hide:
 
-## Choose the right interaction surface
+- The primary action or current status
+- Destructive scope or consequences
+- Information required to decide whether to proceed
+- The only path to an action
+
+Hover, swipe, long press, keyboard shortcuts, and drag-and-drop may accelerate work. Provide a visible, keyboard-accessible, and touch-accessible alternative for essential behavior. Tooltips may clarify an unfamiliar control; they do not repair a missing label or inaccessible action.
+
+## Choose an interaction surface from responsibility
 
 - Use **inline interaction** for small changes that benefit from surrounding context.
 - Use a **popover** for lightweight choices or supporting information anchored to a trigger.
-- Use a **modal** for bounded work that must interrupt the current flow and can be completed without broader navigation.
+- Use a **modal** for bounded work that must interrupt the current context.
 - Use a **drawer or inspector** for contextual detail that should coexist with a list, canvas, or selection.
-- Use a **page or focused workspace** for complex, long, deep-linkable, collaborative, or high-risk tasks.
+- Use a **page or focused workspace** for complex, long, deep-linkable, collaborative, or high-risk work.
 
-Avoid nesting overlays. Preserve focus and provide a clear close or completion path.
+These are decision heuristics, not component mandates. Avoid nested overlays, preserve focus, and provide a clear close, cancel, or completion path.
 
-## Prioritize actions
+## Prioritize and name actions
 
-- Use one dominant action per decision context, not one per container.
-- Keep frequent object actions close to the object.
+- Make the primary mutation obvious within its decision context.
+- Place frequent object actions near the object they affect.
 - Group low-frequency actions without hiding destructive consequences.
-- Distinguish navigation from mutation and preview from commit.
-- Make pending actions resistant to duplicate submission.
-- Use confirmation when consequences are severe or hard to reverse; prefer undo for common reversible actions.
+- Distinguish navigation from mutation, preview from commit, and draft from publish.
+- Prevent duplicate submissions while a mutation is pending.
+- Prefer undo for common reversible actions; use confirmation when consequences are severe, broad, or difficult to reverse.
 
-## Give components coherent responsibilities
+Use specific action labels. Do not rely on a generic arrow, magic icon, or color change to communicate consequence.
 
-Define components by behavior and information ownership. A component should make clear what it displays, changes, validates, and reports. Avoid components that silently fetch unrelated data, mutate distant state, or combine several independent workflows merely because they share a visual box.
+## Give every change accurate feedback
 
-Use shared components for stable repeated contracts. Do not force different behaviors into one highly configurable abstraction solely to remove visual duplication.
+Acknowledge input, expose pending work, confirm completion, and make failure recoverable near the affected context. Use a global notification only for background or cross-screen events. Persistent conditions such as unsaved, offline, failed, or restricted work need persistent status.
 
-## Make system status visible
+Motion may show continuity between a trigger and a result, but it must not delay repeated work or imply success before confirmation.
 
-Communicate what the system is doing, what changed, whether the action succeeded, and what the user can do next. Keep feedback near the affected context when possible. Use global notifications for cross-screen or background events, not as a substitute for field or section-level feedback.
+Use optimistic feedback only when failure is uncommon, the change is reversible, and rollback or reconciliation is clear. Otherwise show a truthful pending state.
 
-## Design for density and scanning
-
-Density is contextual. Favor compact layouts for repeated comparison and expert operations; favor more guidance and separation for infrequent, risky, or novice tasks. Support scanning with aligned columns, stable labels, meaningful grouping, and predictable action placement.
-
-Do not solve density by shrinking text or touch targets beyond usability. Offer column controls, filters, summaries, or disclosure when the data genuinely exceeds the available space.
-
-## Maintain user trust
+## Maintain trust
 
 - Show destructive scope and consequences.
-- Distinguish draft, saved, synced, published, and failed states.
-- Explain disabled or restricted actions when the reason is useful.
-- Preserve user input across recoverable errors.
-- Avoid optimistic feedback when failure would be costly or misleading.
-- Make automated or AI-generated output identifiable, reviewable, and correctable when applicable.
+- Distinguish draft, saved, synced, published, pending, and failed states.
+- Explain disabled or restricted actions when the reason helps users proceed.
+- Preserve input across recoverable errors.
+- Make automated or AI-generated output identifiable, reviewable, and correctable.
+- If AI uses context, files, memory, tools, or prior history, make material inputs and persistent memory inspectable and manageable when applicable.
 
-## Preserve accessibility
+## Scale systems to the product
 
-Use semantic controls, meaningful names, logical heading order, visible focus, sufficient contrast, keyboard access, non-color status cues, and programmatic error relationships. Manage focus when content appears, disappears, or changes context. Respect zoom, text expansion, reduced motion, and alternate input methods.
+Reuse stable contracts for repeated behaviors, states, and semantics. Do not create a highly configurable abstraction merely to remove visual duplication. Add tokens, variants, and shared components in proportion to repetition, product complexity, and team needs.
+
+## Preserve accessibility and user control
+
+Use semantic controls, meaningful names, logical headings, visible focus, keyboard access, sufficient contrast, programmatic errors, non-color status cues, and predictable focus movement. Respect zoom, text expansion, reduced motion, localization, and alternate input methods.
