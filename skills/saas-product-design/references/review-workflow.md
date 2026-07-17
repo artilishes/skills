@@ -92,3 +92,7 @@ Return:
 4. **Improvement sequence**: the fewest coherent passes, such as flow → states → responsiveness → polish
 
 Mention strengths only when they should be preserved during changes. Do not pad the review with generic compliments or restate every visible detail.
+
+## 7. Completion gate
+
+Complete the Review workflow only when every material claim is grounded in supplied evidence, every finding has priority, evidence, impact, recommendation, and verification, missing evidence is listed, and findings are ordered by user impact.

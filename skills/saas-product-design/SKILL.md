@@ -1,25 +1,25 @@
 ---
 name: saas-product-design
-description: Design, implement, refactor, or review SaaS product interfaces using technology-agnostic product design methods. Use for dashboards, CRUD and administration screens, data-heavy tools, navigation, forms, settings, builders, editors, onboarding, and their empty, loading, error, disabled, overflow, responsive, motion, and feedback states. Trigger when working from product requirements, screenshots, Figma designs, existing UI code, or partial implementations; do not use for marketing sites, landing pages, or brand identity work.
+description: Design, implement, refactor, and review SaaS product interfaces. Use for product requirements, screenshots, Figma designs, existing code, or partial implementations involving dashboards, CRUD/admin, data-heavy tools, navigation, forms/settings, builders/editors, onboarding, interface states, or responsive behavior. Excludes marketing sites, landing pages, and brand identity.
 ---
 
 # SaaS Product Design
 
-Turn product intent into usable product interfaces. Ground every decision in user tasks, data, risk, frequency, and repository evidence before applying visual style.
+Ground every decision in user tasks, data, risk, frequency, and repository evidence before applying visual style.
 
 ## Choose a workflow
 
-- **Design**: Read [design-workflow.md](references/design-workflow.md), then the relevant principles and patterns.
-- **Implement**: Read [implementation-workflow.md](references/implementation-workflow.md) before changing code. Inspect the repository and its design system; never assume a framework or component library.
-- **Review**: Read [review-workflow.md](references/review-workflow.md). Review only what the supplied artifact can prove and identify missing evidence separately.
+- **Design**: Read [design-workflow.md](references/design-workflow.md).
+- **Implement**: Read [implementation-workflow.md](references/implementation-workflow.md) before changing code. Inspect the repository and its design system, then map decisions to local conventions.
+- **Review**: Read [review-workflow.md](references/review-workflow.md). Keep every claim within what the supplied artifact can prove and identify missing evidence separately.
 - **Hybrid work**: Run Review before Implement when improving an existing interface. Run Design before Implement when requirements do not yet define the interaction model.
 
 Load supporting references selectively:
 
-- Use [product-interface-principles.md](references/product-interface-principles.md) for hierarchy, flows, disclosure, action priority, density, and component boundaries.
-- Use [patterns-states-responsive.md](references/patterns-states-responsive.md) for screen patterns, state coverage, overflow, and responsive transformations.
-- Use [visual-language.md](references/visual-language.md) for typography, color, depth, motion, and feedback. Preserve its distinction between durable principles and contextual preferences.
-- Use [source-notes.md](references/source-notes.md) only when provenance matters or when extending this skill.
+- Read [product-interface-principles.md](references/product-interface-principles.md) when hierarchy, flows, disclosure, action priority, density, or component boundaries require judgment.
+- Read [patterns-states-responsive.md](references/patterns-states-responsive.md) when specifying a concrete screen, state coverage, overflow, or responsive transformations.
+- Read [visual-language.md](references/visual-language.md) only when typography, color, depth, motion, or feedback is in scope. Preserve its distinction between durable principles and contextual preferences.
+- Read [source-notes.md](references/source-notes.md) only when provenance matters or when extending this skill.
 
 ## Work from evidence
 
@@ -33,13 +33,13 @@ Load supporting references selectively:
 
 ## Preserve product logic
 
-- Let tasks and data determine the interface. Do not begin from a fashionable dashboard composition.
+- Begin with tasks and data; treat visual trends as optional styling.
 - Keep the primary task and current context obvious. Make secondary actions quieter without making them undiscoverable.
-- Use progressive disclosure to manage complexity, not to hide required information or common actions.
+- Keep required information and common actions visible; disclose rare, advanced, or conditional controls.
 - Give each component one clear responsibility and keep state ownership explicit.
 - Reuse existing patterns when they work. Introduce a new pattern only for a real behavior or information need.
 - Treat loading, empty, error, disabled, success, permissions, long content, overflow, and responsive behavior as part of the feature.
-- Use color, depth, and motion to communicate semantics and change. Do not use them as decoration that competes with the task.
+- Use color, depth, and motion only to communicate semantics and change.
 - Preserve accessibility and user control, including focus, labels, contrast, reduced motion, and recoverable destructive actions.
 
 ## Match the output to the workflow
@@ -68,8 +68,8 @@ For **Review**, return:
 3. Missing states or evidence
 4. A recommended improvement order
 
-Avoid generic praise, aesthetic scoring without product context, framework-specific prescriptions, and exhaustive checklists that do not change the outcome.
+Use the selected workflow reference's completion gate as the stopping condition. Make every review finding evidence-based, product-specific, and actionable.
 
 ## Boundaries
 
-Keep the skill technology-agnostic. Translate guidance into the repository's own language and conventions. Exclude marketing websites, landing pages, brand identity, acquisition copy, and framework-specific implementation rules. Do not add scripts, generators, opaque dependencies, screenshots, transcripts, or third-party media to this skill.
+Keep the skill technology-agnostic. Translate guidance into the repository's own language and conventions. Exclude marketing websites, landing pages, brand identity, acquisition copy, and framework-specific implementation rules. Keep this skill text-only: SKILL.md, agent metadata, and references. Exclude scripts, generators, executable dependencies, screenshots, transcripts, and third-party media.

@@ -12,6 +12,7 @@ Use this workflow to turn product requirements into a screen or connected produc
 6. Assign component responsibilities
 7. Specify states and responsive behavior
 8. Deliver a screen specification
+9. Apply the completion gate
 
 ## 1. Frame the product problem
 
@@ -141,3 +142,7 @@ Acceptance criteria:
 ```
 
 Keep the specification behavioral. Add measurements only when a platform, design system, or artifact supplies them.
+
+## 9. Completion gate
+
+Complete the Design workflow only when the specification covers the product goal, primary and alternate paths, screen structure, interactions, component ownership, every applicable state, wide/medium/narrow behavior, accessibility, and observable acceptance criteria; label every unresolved assumption.

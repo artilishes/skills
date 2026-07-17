@@ -12,6 +12,7 @@ Use this workflow before implementing or refactoring a SaaS interface in an exis
 6. Preserve system integrity
 7. Verify proportionally
 8. Hand off clearly
+9. Apply the completion gate
 
 ## 1. Inspect before proposing
 
@@ -116,3 +117,7 @@ For visual verification, compare hierarchy and behavior rather than forcing pixe
 ## 8. Hand off clearly
 
 Summarize repository findings, changed behavior, reused or introduced patterns, verification results, and remaining limitations. Do not claim hidden or untested states are complete.
+
+## 9. Completion gate
+
+Complete the Implement workflow only when repository conventions have been inspected, requested behavior and applicable states are implemented, shared-component impact is checked, relevant validation passes, and every deferred or unverified item is reported.
