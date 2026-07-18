@@ -4,7 +4,7 @@ A curated collection of skills for AI coding agents.
 
 ## Available skills
 
-### [SaaS Product Design](.agents/skills/saas-product-design/)
+### [SaaS Product Design](skills/saas-product-design/)
 
 Design, implement, refactor, and review SaaS product interfaces, including dashboards, CRUD and admin tools, data-heavy workflows, navigation, forms, settings, builders, onboarding, AI interfaces, and responsive states.
 
@@ -48,6 +48,10 @@ Use $saas-product-design to review this settings screen and prioritize evidence-
 ```
 
 Provide the relevant requirements, screenshots, design links, code, or repository context with the request.
+
+## Attribution
+
+The SaaS Product Design skill draws inspiration from the product design lessons shared by [Kole Jain](https://www.kolejain.com/), including the videos on [his YouTube channel](https://www.youtube.com/@KoleJain). I am a great fan of Kole's work and grateful to him for making his knowledge and perspective available to the design community.
 
 ## License
 
