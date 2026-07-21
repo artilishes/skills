@@ -19,7 +19,6 @@ Load only the references needed for the task:
 - [product-interface-principles.md](references/product-interface-principles.md) for hierarchy, data representation, disclosure, actions, feedback, and trust.
 - [patterns-states-responsive.md](references/patterns-states-responsive.md) for screen patterns, state coverage, onboarding, platform behavior, and responsive transformations.
 - [visual-language.md](references/visual-language.md) for typography, color, depth, icons, motion, and contextual visual recipes.
-- [source-notes.md](references/source-notes.md) for the research method and attribution boundary.
 
 ## Apply the evidence hierarchy
 
