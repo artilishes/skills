@@ -1,0 +1,4 @@
+interface:
+  display_name: "Apply Engineering Principles"
+  short_description: "Guide consequential engineering decisions"
+  default_prompt: "Use $apply-engineering-principles to review this technical decision and recommend the smallest maintainable approach."
